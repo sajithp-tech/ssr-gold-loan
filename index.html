@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title data-en="SSR GOLD LOAN - Theni" data-ta="SSR தங்க நகை கடன் - தேனி">SSR GOLD LOAN - Theni</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            animation: fadeIn 1.2s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+
+
+<script>
+    const pricePerGram = 6000;
+    const interestRate = 0.02;
+
+    function switchCalculator(mode) {
+        document.getElementById('calculator-weight').classList.toggle('hidden', mode !== 'weight');
+        document.getElementById('calculator-amount').classList.toggle('hidden', mode !== 'amount');
+
+        document.getElementById('btn-weight').classList.toggle('bg-yellow-400', mode === 'weight');
+        document.getElementById('btn-weight').classList.toggle('bg-gray-200', mode !== 'weight');
+
+        document.getElementById('btn-amount').classList.toggle('bg-yellow-400', mode === 'amount');
+        document.getElementById('btn-amount').classList.toggle('bg-gray-200', mode !== 'amount');
+    }
+
+    function calculateByWeight() {
+        const weight = parseFloat(document.getElementById('goldWeight').value);
+        const duration = parseInt(document.getElementById('duration-weight').value);
+        if (isNaN(weight) || isNaN(duration) || weight <= 0 || duration <= 0) {
+            document.getElementById('result').innerText = '⚠️ Please enter valid inputs.';
+            return;
+        }
+
+        const loan = weight * pricePerGram;
+        const interest = loan * interestRate * duration;
+        const total = loan + interest;
+
+        document.getElementById('result').innerHTML =
+            `Loan Amount: ₹${loan.toLocaleString()}<br>
+        Interest: ₹${interest.toLocaleString()}<br>
+        <strong>Total Payable: ₹${total.toLocaleString()}</strong>`;
+    }
+
+    function calculateByAmount() {
+        const amount = parseFloat(document.getElementById('loanAmount').value);
+        const duration = parseInt(document.getElementById('duration-amount').value);
+        if (isNaN(amount) || isNaN(duration) || amount <= 0 || duration <= 0) {
+            document.getElementById('result').innerText = '⚠️ Please enter valid inputs.';
+            return;
+        }
+
+        const interest = amount * interestRate * duration;
+        const total = amount + interest;
+        const approxWeight = amount / pricePerGram;
+
+        document.getElementById('result').innerHTML =
+            `Interest: ₹${interest.toLocaleString()}<br>
+        Total Payable: ₹${total.toLocaleString()}<br>
+        Approx. Gold Required: ${approxWeight.toFixed(2)} grams`;
+
+    }
+</script>
+
+<script>
+    function toggleFAQ() {
+        const panel = document.getElementById('faqPanel');
+        panel.classList.toggle('translate-x-full');
+    }
+</script>
+
+<!-- Slide-in FAQ Panel -->
+<div id="faqPanel"
+    class="fixed top-0 right-0 h-full w-80 bg-white shadow-lg transform translate-x-full transition-transform duration-300 z-40 border-l border-yellow-300 overflow-y-auto">
+    <div class="p-6">
+        <h2 class="text-xl font-bold text-yellow-800 mb-4" data-en="FAQs" data-ta="உங்கள் கேள்விகள்">FAQs</h2>
+
+        <div class="space-y-4">
+            <div>
+                <h3 class="font-semibold text-yellow-700" data-en="How is the loan amount calculated?"
+                    data-ta="கடன் தொகை எவ்வாறு கணக்கிடப்படுகிறது?">How is the loan amount calculated?</h3>
+                <p class="text-sm text-gray-700" data-en="₹6000 per gram based on the weight and purity of your gold."
+                    data-ta="உங்கள் தங்கத்தின் எடை மற்றும் தூய்மையைப் பொறுத்து ஒரு கிராமுக்கு ₹6000.">₹6000 per gram
+                    based on the weight and purity of your gold.</p>
+            </div>
+            <div>
+                <h3 class="font-semibold text-yellow-700" data-en="What is the interest rate?"
+                    data-ta="வட்டி விகிதம் என்ன?">What is the interest rate?</h3>
+                <p class="text-sm text-gray-700" data-en="Flat 2% monthly interest. No hidden charges."
+                    data-ta="மாதாந்திர வட்டி 2% மட்டுமே. மறைக்கப்பட்ட கட்டணங்கள் இல்லை.">Flat 2% monthly interest. No
+                    hidden charges.</p>
+            </div>
+            <div>
+                <h3 class="font-semibold text-yellow-700" data-en="Do I need income proof?"
+                    data-ta="எனக்கு வருமானச் சான்று தேவையா?">Do I need income proof?</h3>
+                <p class="text-sm text-gray-700" data-en="No, only Aadhar card xerox is required."
+                    data-ta="இல்லை, ஆதார் அட்டை ஜெராக்ஸ் மட்டுமே தேவை.">No, only Aadhar card xerox is required.</p>
+            </div>
+            <div>
+                <h3 class="font-semibold text-yellow-700" data-en="Can I repay early?"
+                    data-ta="நான் முன்கூட்டியே திருப்பிச் செலுத்த முடியுமா?">Can I repay early?</h3>
+                <p class="text-sm text-gray-700" data-en="Yes, without penalties or extra fees."
+                    data-ta="ஆம், அபராதம் அல்லது கூடுதல் கட்டணம் இல்லாமல்.">Yes, without penalties or extra fees.</p>
+            </div>
+            <div>
+                <h3 class="font-semibold text-yellow-700" data-en="Open on Sundays?"
+                    data-ta="ஞாயிற்றுக்கிழமைகளில் திறந்திருக்குமா?">Open on Sundays?</h3>
+                <p class="text-sm text-gray-700" data-en="Yes, we are open on Sundays too."
+                    data-ta="ஆம், நாங்கள் ஞாயிற்றுக்கிழமைகளிலும் திறந்திருப்போம்.">Yes, we are open on Sundays too.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<body class="bg-gradient-to-br from-yellow-100 via-yellow-200 to-yellow-100 font-sans text-gray-900">
+
+    <!-- Centered Logo Header -->
+    <header class="bg-yellow-100 py-6 border-b border-yellow-300">
+        <div class="max-w-5xl mx-auto flex flex-col items-center justify-center">
+            <div class="flex flex-col md:flex-row items-center justify-center md:space-x-4">
+                <img src="SSR Gold Loan (1).png" alt="SSR Gold Loan Logo" class="h-36 w-auto mb-2 md:mb-0">
+                <h1 class="text-2xl md:text-3xl font-bold text-yellow-800 text-center"
+                    data-en="SSR (Sri Sakthii Renuga) GOLD LOAN" data-ta="ஸ்ரீ சக்தி ரேணுகா தங்க நகை கடன்">SSR (Sri
+                    Sakthii Renuga) GOLD LOAN</h1>
+            </div>
+            <p1 class="text-sm text-gray-600 text-center" data-en="Licensed by GOVT of Tamil Nadu"
+                data-ta="தமிழ்நாடு அரசால் அங்கீகாரம் பெற்றது.">Licensed by GOVT of Tamil Nadu</p>
+                <p1 class="text-sm text-gray-600 text-center" data-en="Trusted Gold Loans in THENI"
+                    data-ta="தேனியில் நம்பகமான தங்க நகை கடன்கள்">Trusted Gold Loans in THENI</p>
+        </div>
+
+    </header>
+
+
+    <div class="absolute top-4 right-6">
+        <button onclick="switchLanguage('en')" class="px-3 py-1 text-sm bg-yellow-300 rounded-l">English</button>
+        <button onclick="switchLanguage('ta')" class="px-3 py-1 text-sm bg-yellow-300 rounded-r">தமிழ்</button>
+    </div>
+
+
+    <!-- Hero Section -->
+    <section class="bg-yellow-200 py-10">
+        <div class="max-w-5xl mx-auto text-center">
+            <h2 class="text-3xl font-bold mb-4" data-en="Flat 2% Interest | No Extra Charges"
+                data-ta="நிலையான 2% வட்டி | கூடுதல் கட்டணங்கள் இல்லை">Flat 2% Interest | No Extra Charges</h2>
+            <p class="text-lg mb-6" data-en="We offer flexible gold loan services with quick processing and trust."
+                data-ta="விரைவான செயலாக்கம் மற்றும் நம்பிக்கையுடன் கூடிய நெகிழ்வான தங்க நகை கடன் சேவைகளை நாங்கள் வழங்குகிறோம்.">
+                We offer flexible gold loan services with quick processing and trust.</p>
+            <a href="https://wa.me/918122236064" class="bg-yellow-600 hover:bg-yellow-700 text-white px-6 py-2 rounded"
+                data-en="Contact on WhatsApp" data-ta="WhatsApp தொடர்பு கொள்ளவும்">Contact on WhatsApp</a>
+        </div>
+    </section>
+    <!-- Documents & Eligibility -->
+    <section class="py-10 bg-white border-t border-yellow-300">
+        <div class="max-w-5xl mx-auto px-4">
+            <h2 class="text-2xl font-bold text-yellow-800 mb-6 text-center"
+                data-en="Loan Eligibility & Required Documents" data-ta="கடன் தகுதி & தேவையான ஆவணங்கள்">Loan Eligibility
+                & Required Documents</h2>
+
+            <div class="grid md:grid-cols-2 gap-8">
+                <!-- Eligibility -->
+                <div>
+                    <h3 class="text-xl font-semibold text-yellow-700 mb-3" data-en="Eligibility" data-ta="தகுதி">
+                        Eligibility</h3>
+                    <ul class="list-disc list-inside text-gray-700 space-y-2">
+                        <li data-en="Minimum gold required: 1 gram and above"
+                            data-ta="குறைந்தபட்ச தங்க நகை 1 கிராம் தேவை">Minimum gold required: 1
+                            gram and above</li>
+                        <li data-en="Anyone with valid ID proof can apply"
+                            data-ta="செல்லுபடியாகும் அடையாளச் சான்று உள்ள எவரும் விண்ணப்பிக்கலாம்.">Anyone with valid ID
+                            proof can apply</li>
+
+                    </ul>
+                </div>
+
+                <!-- Documents -->
+                <div>
+                    <h3 class="text-xl font-semibold text-yellow-700 mb-3" data-en="Documents Required"
+                        data-ta="தேவையான ஆவணங்கள்">Documents Required</h3>
+                    <ul class="list-disc list-inside text-gray-700 space-y-2">
+                        <li><strong data-en="Aadhar Card" data-ta="ஆதார் அட்டை-">Aadhar Card</strong><strong
+                                data-en=" of the borrower" data-ta="கடன் வாங்கியவரின்"> of the borrower</strong></li>
+                        <li data-en="No income proof or salary slip required"
+                            data-ta="வருமானச் சான்று அல்லது சம்பளச் சீட்டு தேவையில்லை.">No income proof or salary slip
+                            required</li>
+                        <li data-en="Walk-in with your gold and ID, get loan instantly"
+                            data-ta="உங்கள் தங்கம் மற்றும் ஐடியுடன் நேரில் வந்து உடனடியாகக் கடன் பெறுங்கள்.">Walk-in
+                            with your gold and ID, get loan instantly</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Gold Rate by Purity -->
+    <section class="py-10 bg-yellow-200 border-t border-yellow-300">
+        <div class="max-w-5xl mx-auto px-4">
+            <h2 class="text-2xl font-bold text-yellow-800 mb-4 text-center" data-en="Loan Per Gram"
+                data-ta="1 கிராமுக்கு கடன்">Loan Per Gram</h2>
+
+            <div class="max-w-md mx-auto bg-white p-6 rounded-lg shadow border border-yellow-200">
+                <ul class="text-gray-800 space-y-2 text-lg">
+                    <li class="flex justify-between">
+                        <span data-en="22 Carat" data-ta="22 காரட்">22 Carat</span>
+                        <span class="font-semibold text-yellow-700">₹6000</span>
+                    </li>
+                    <li class="flex justify-between">
+                        <span data-en="20 Carat" data-ta="20 காரட்">20 Carat</span>
+                        <span class="font-semibold text-yellow-700">₹5500</span>
+                    </li>
+                    <li class="flex justify-between">
+                        <span data-en="18 Carat" data-ta="18 காரட்">18 Carat</span>
+                        <span class="font-semibold text-yellow-700">₹5000</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Why Choose SSR -->
+    <section class="py-10 bg-yellow-50 border-t border-yellow-300">
+        <div class="max-w-5xl mx-auto px-4 text-center">
+            <h2 class="text-2xl font-bold text-yellow-800 mb-6" data-en="Why Choose SSR Gold Loan?"
+                data-ta="SSR தங்கக் கடனை ஏன் தேர்வு செய்ய வேண்டும்?">Why Choose SSR Gold Loan?</h2>
+
+            <div class="grid md:grid-cols-3 gap-6 text-left">
+                <div class="bg-white p-5 rounded-lg shadow-md border border-yellow-200">
+                    <h3 class="text-lg font-semibold text-yellow-700 mb-2" data-en="💰 Gold-Based Loan Value"
+                        data-ta="💰 தங்கம் சார்ந்த கடன் மதிப்பு">💰 Gold-Based Loan Value</h3>
+                    <p class="text-gray-700"
+                        data-en="Loan amount is calculated based on your gold's weight & purity , transparent and fair evaluation every time."
+                        data-ta="உங்கள் தங்கத்தின் எடை மற்றும் தூய்மை, வெளிப்படையான மற்றும் நியாயமான மதிப்பீட்டின் அடிப்படையில் கடன் தொகை கணக்கிடப்படுகிறது.">
+                        Loan amount is calculated based on your gold's weight & purity , transparent and fair evaluation
+                        every time.</p>
+                </div>
+
+                <div class="bg-white p-5 rounded-lg shadow-md border border-yellow-200">
+                    <h3 class="text-lg font-semibold text-yellow-700 mb-2" data-en="flexible  repayment"
+                        data-ta="நெகிழ்வான திருப்பிச் செலுத்துதல்">🕒 Flexible Repayment</h3>
+                    <p class="text-gray-700"
+                        data-en="Default repayment term is 11 months, but we give more time based on your needs — no pressure, nopenalties."
+                        data-ta="திருப்பிச் செலுத்தும் காலம் 11 மாதங்கள், ஆனால் உங்கள் தேவைகளைப் பொறுத்து நாங்கள் கூடுதல் அவகாசம் தருகிறோம் - எந்த அழுத்தமும் இல்லை, அபராதமும் இல்லை.">
+                        Default repayment term is 11 months, but we give more time based on your needs — no pressure,
+                        nopenalties.<strong
+                            data-en="Customers can also release their gold instantly at anytime once the loan is repaid in full. But Minimum 15 days interest will be collected "
+                            data-ta="கடனை முழுமையாக திருப்பிச் செலுத்தியவுடன் வாடிக்கையாளர்கள் எந்த நேரத்திலும் தங்கள் தங்கத்தை உடனடியாக விடுவிக்கலாம். ஆனால் குறைந்தபட்சம் 15 நாட்கள் வட்டி வசூலிக்கப்படும்.">Customers
+                            can also release their gold instantly at anytime once the loan is repaid in full. But
+                            Minimum 15 days interest will be collected </strong>
+                    </p>
+
+                </div>
+
+                <div class="bg-white p-5 rounded-lg shadow-md border border-yellow-200">
+                    <h3 class="text-lg font-semibold text-yellow-700 mb-2" data-en="📆 Sunday Service Too"
+                        data-ta="📆 ஞாயிறு ஆராதனை கூட">📆 Sunday Service Too</h3>
+                    <p class="text-gray-700"
+                        data-en="Busy on weekdays? We’re open even on Sundays so you can get cash when you really need it."
+                        data-ta="வார நாட்களில் பரபரப்பா? ஞாயிற்றுக்கிழமைகளில் கூட நாங்கள் திறந்திருப்பதால், உங்களுக்கு தேவைப்படும்போது பணத்தைப் பெறலாம்.">
+                        Busy on weekdays? We’re open even on Sundays so you can get cash when you really need it.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+
+    <!-- Toggleable Loan Calculator -->
+    <section class="py-10 bg-white border-t border-yellow-300">
+        <div class="max-w-xl mx-auto px-4">
+            <div class="p-6 bg-white border border-yellow-300 rounded-2xl shadow-lg">
+                <h2 class="text-2xl font-bold text-yellow-700 mb-4 text-center" data-en="💰 Gold Loan Calculator"
+                    data-ta="💰 Gold Loan Calculator">💰 Gold Loan Calculator</h2>
+                <p class="text-center text-sm text-gray-600 mb-6" data-en="Current Gold Rate: ₹6000 / gram"
+                    data-ta="தற்போதைய தங்க விலை: ₹6000 / கிராம்">Current Gold Rate: ₹6000 / gram</p>
+
+                <!-- Toggle -->
+                <div class="flex justify-center mb-6">
+                    <button onclick="switchCalculator('weight')" id="btn-weight"
+                        class="px-4 py-2 rounded-l bg-yellow-400 text-black font-semibold" data-en="By Weight"
+                        data-ta="எடை மூலம்">By Weight</button>
+                    <button onclick="switchCalculator('amount')" id="btn-amount"
+                        class="px-4 py-2 rounded-r bg-gray-200 text-gray-700" data-en="By Amount"
+                        data-ta="தொகையின்படி">By Amount</button>
+                </div>
+
+                <!-- Weight Form -->
+                <div id="calculator-weight" class="space-y-4">
+                    <input id="goldWeight" type="number" placeholder="Gold Weight (grams)"
+                        class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-400">
+                    <input id="duration-weight" type="number" value="11" placeholder="Duration (Months)"
+                        class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-400">
+                    <button onclick="calculateByWeight()"
+                        class="w-full bg-yellow-400 hover:bg-yellow-500 text-black font-semibold py-3 rounded-lg"
+                        data-en="Calculate" data-ta="கணக்கிடு">
+                        Calculate
+                    </button>
+                </div>
+
+                <!-- Amount Form (Hidden by default) -->
+                <div id="calculator-amount" class="space-y-4 hidden">
+                    <input id="loanAmount" type="number" placeholder="Loan Amount (₹)"
+                        class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-400">
+                    <input id="duration-amount" type="number" value="11" placeholder="Duration (Months)"
+                        class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-400">
+                    <button onclick="calculateByAmount()"
+                        class="w-full bg-yellow-400 hover:bg-yellow-500 text-black font-semibold py-3 rounded-lg"
+                        data-en="Calculate" data-ta="கணக்கிடு">
+                        Calculate
+                    </button>
+                </div>
+
+                <div id="result" class="mt-6 text-center text-lg text-green-700 font-medium"></div>
+            </div>
+        </div>
+    </section>
+
+
+    <button onclick="toggleFAQ()"
+        class="fixed bottom-6 right-6 bg-yellow-600 hover:bg-yellow-700 text-white px-4 py-2 rounded shadow-lg z-50"
+        data-en="FAQs" data-ta="உங்கள் கேள்விகள்">
+          FAQs
+    </button>
+
+
+
+    <!-- Contact Info -->
+    <section class="py-10">
+        <div class="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6 px-4">
+            <div>
+                <h3 class="text-xl font-semibold mb-2" data-en="Contact & Address" data-ta="தொடர்பு & முகவரி">Contact &
+                    Address</h3>
+                <p data-en="📍 Near SBI ATM, Sri Rengapuram, Theni, Tamil Nadu"
+                    data-ta="📍 SBI ATM அருகில், ஸ்ரீ ரெங்காபுரம், தேனி, தமிழ்நாடு">📍 Near SBI ATM, Sri Rengapuram,
+                    Theni, Tamil Nadu</p>
+                <p>📞 81222 36064</p>
+                <p>📧 ssrgl2023@gmail.com</p>
+                <p data-en="🕒 9:30 AM - 7:00 PM (Open on Sundays)"
+                    data-ta="🕒 காலை 9:30 - மாலை 7:00 (ஞாயிற்றுக்கிழமைகளில் திறந்திருக்கும்)">🕒 9:30 AM - 6:45 PM (Open
+                    on Sundays)</p>
+            </div>
+            <div>
+                <h3 class="text-xl font-semibold mb-2" data-en="Loan Details" data-ta="கடன் விவரங்கள்">Loan Details</h3>
+                <ul class="list-disc list-inside">
+                    <li data-en="Minimum 1 gram gold required" data-ta="குறைந்தபட்சம் 1 கிராம் தங்கம் தேவை.">Minimum 1
+                        gram gold required</li>
+                    <li data-en="11-month default duration, flexible repayment"
+                        data-ta="11 மாத தவணைக் கால அளவு, நெகிழ்வான திருப்பிச் செலுத்தும் வசதி">11-month default
+                        duration, flexible repayment</li>
+                    <li data-en="Only Aadhar card needed" data-ta="ஆதார் அட்டை மட்டும் போதும்.">Only Aadhar card needed
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-yellow-100 py-4 text-center text-sm text-yellow-800">
+        © 2023 SSR GOLD LOAN. All rights reserved.
+    </footer>
+
+
+    <script>
+        function switchLanguage(lang) {
+            document.querySelectorAll('[data-en]').forEach(el => {
+                el.textContent = lang === 'ta' ? el.getAttribute('data-ta') : el.getAttribute('data-en');
+            });
+        }
+    </script>
+
+</body>
+
+</html>
